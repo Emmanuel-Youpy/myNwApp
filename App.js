@@ -3,22 +3,27 @@ import { StyleSheet, Text, View } from "react-native";
 import Mytabs from "./navigation/Mytabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { useGetTrendingNewsQuery } from "./services/trendingNewsApi";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Tabs"
-          component={Mytabs}
-          options={{ headerShown: false }}
-        />
+  const { data: trendingNews } = useGetTrendingNewsQuery();
 
-        {/* <StatusBar style="auto" /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Tabs"
+            component={Mytabs}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
@@ -30,3 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+{
+  /* <StatusBar style="auto" /> */
+}
