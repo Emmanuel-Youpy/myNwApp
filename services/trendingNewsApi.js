@@ -16,9 +16,11 @@ export const trendingNewsApi = createApi({
   }),
   endpoints: (builder) => ({
     getTrendingNews: builder.query({
-      query: ({ newsCategory, count }) =>
+      query: () =>
         createRequest(
-          `/news/trendingtopics&safeSearch=Off&textFormat=Raw&count=${count}`
+          // `/news/trendingtopics&safeSearch=Off&textFormat=Raw&count=${count}`
+          // `/news/search?q=${newsCategory}&safeSearch=Off&textFormat=Raw&freshness=Day&count=${count}`
+          "/news?safeSearch=Off&textFormat=Raw"
         ),
     }),
   }),

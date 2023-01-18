@@ -1,17 +1,15 @@
 import { StatusBar } from "expo-status-bar";
+import "intl-polyfill";
 import { StyleSheet, Text, View } from "react-native";
 import Mytabs from "./navigation/Mytabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { useGetTrendingNewsQuery } from "./services/trendingNewsApi";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const { data: trendingNews } = useGetTrendingNewsQuery();
-
   return (
     <Provider store={store}>
       <NavigationContainer>
