@@ -15,7 +15,7 @@ const HomeNews = () => {
   const { data: trendingNews, isFetching } = useGetTrendingNewsQuery();
   // console.log(trendingNews);
 
-  const dataItem = trendingNews?.value;
+  // const dataItem = trendingNews?.articles;
   // console.log(dataItem);
 
   if (isFetching) return <Text>Loading</Text>;
@@ -31,8 +31,6 @@ const HomeNews = () => {
   return (
     <ScrollView>
       <View style={tw`pt-15 pl-2 pr-2 `}>
-        {/* <Text>{trendingNews?.value?.data?.NewsArticle} hmm</Text> */}
-
         <View
           style={[
             tw`content-center items-center`,
@@ -50,15 +48,14 @@ const HomeNews = () => {
           Today
         </Text>
         <Divider />
-
-        {trendingNews?.value.map((news, i) => (
+        {trendingNews?.articles.map((news, i) => (
           <Card
             key={i}
             // image="https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
-            image={news?.thumbnail || demoImage}
-            name={news.name}
-            title="The title"
-            time={news.datePublished}
+            image={news?.publisher?.url || demoImage}
+            name={news?.publisher?.name}
+            title={news.title}
+            time={news.published_date}
           />
         ))}
       </View>
