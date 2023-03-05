@@ -28,7 +28,10 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "tailwindcss-react-native": "^1.7.10",
-    "twrnc": "^3.5.0"
+    "twrnc": "^3.5.0",
+    "react-native-web": "~0.18.9",
+    "react-dom": "18.1.0",
+    "@expo/webpack-config": "^0.17.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

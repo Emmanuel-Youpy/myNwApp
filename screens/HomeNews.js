@@ -11,12 +11,12 @@ import Card from "../components/Card";
 import { useGetTrendingNewsQuery } from "../services/trendingNewsApi";
 
 const HomeNews = () => {
-  const demoImage = "https://picsum.photos";
+  const demoImage = "https://source.unsplash.com/random/300x200";
   const { data: trendingNews, isFetching } = useGetTrendingNewsQuery();
   // console.log(trendingNews);
 
-  // const dataItem = trendingNews?.articles;
-  // console.log(dataItem);
+  const dataItem = trendingNews?.articles;
+  console.log(dataItem);
 
   if (isFetching) return <Text>Loading</Text>;
 
@@ -51,8 +51,10 @@ const HomeNews = () => {
         {trendingNews?.articles.map((news, i) => (
           <Card
             key={i}
-            // image="https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
-            image={news?.publisher?.url || demoImage}
+            // image="https://images.pexels.com/photos/214574/pexels-photo-214574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            // "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
+            // image={news?.publisher?.url || demoImage}
+            image={demoImage}
             name={news?.publisher?.name}
             title={news.title}
             time={news.published_date}
