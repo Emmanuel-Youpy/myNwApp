@@ -2,16 +2,18 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import tw from "twrnc";
 
-const Card = ({ image, name, title, time }) => {
+const CarBoard = ({ image, name, title, time }) => {
   return (
     <View
-      style={{
-        paddingTop: 5,
-        width: "45%",
-        margin: 10,
-        alignContent: "center",
-        alignItems: "center",
-      }}
+      style={
+        {
+          // paddingTop: 35,
+          // width: "45%",
+          // margin: 10,
+          // alignContent: "center",
+          // alignItems: "center",
+        }
+      }
     >
       <Image source={{ uri: image }} style={{ width: "100%", height: 250 }} />
       <View style={{}}>
@@ -23,4 +25,4 @@ const Card = ({ image, name, title, time }) => {
   );
 };
 
-export default Card;
+export default CarBoard;

@@ -6,16 +6,23 @@ import { Ionicons } from "@expo/vector-icons";
 // import "intl/locale-data/jsonp/en";
 import { Divider } from "@rneui/themed";
 import Card from "../components/Card";
+import CardFlat from "../components/CardFlat";
+import CardBoard from "../components/CardBoard";
 // import "intl-polyfill/locale-data/jsonp/en.js";
+import millify from "millify";
+import { Dimensions } from "react-native";
 
 import { useGetTrendingNewsQuery } from "../services/trendingNewsApi";
 
 const HomeNews = () => {
+  const windowWidth = Dimensions.get("window").width;
+  console.log("Window width:", windowWidth);
+
   const demoImage = "https://source.unsplash.com/random/300x200";
   const { data: trendingNews, isFetching } = useGetTrendingNewsQuery();
   // console.log(trendingNews);
 
-  const dataItem = trendingNews?.articles;
+  const dataItem = trendingNews?.articles[3];
   console.log(dataItem);
 
   if (isFetching) return <Text>Loading</Text>;
@@ -28,9 +35,45 @@ const HomeNews = () => {
   //     return <Text>{dateString}</Text>;
   //   }
 
+  const FirstItem = () => {
+    const firstItem = trendingNews?.articles[0]; // get the first item from the arra
+    return (
+      <View>
+        <CardBoard
+          image={demoImage}
+          name={firstItem?.publisher?.name}
+          title={firstItem?.title}
+          time={firstItem?.published_date}
+        />
+      </View>
+    );
+  };
+  const FlatItem = () => {
+    const firstItem = trendingNews?.articles[0]; // get the first item from the arra
+    return (
+      <View style={{}}>
+        <CardFlat
+          image={demoImage}
+          name={firstItem?.publisher?.name}
+          title={firstItem?.title}
+          time={firstItem?.published_date}
+        />
+      </View>
+    );
+  };
+
+  const newsList = trendingNews?.articles.slice(1, 3);
+
   return (
     <ScrollView>
-      <View style={tw`pt-15 pl-2 pr-2 `}>
+      <View
+        style={{
+          paddingTop: 45,
+          paddingLeft: 5,
+          paddingRight: 5,
+          // width: windowWidth,
+        }}
+      >
         <View
           style={[
             tw`content-center items-center`,
@@ -48,18 +91,29 @@ const HomeNews = () => {
           Today
         </Text>
         <Divider />
-        {trendingNews?.articles.map((news, i) => (
-          <Card
-            key={i}
-            // image="https://images.pexels.com/photos/214574/pexels-photo-214574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            // "https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg"
-            // image={news?.publisher?.url || demoImage}
-            image={demoImage}
-            name={news?.publisher?.name}
-            title={news.title}
-            time={news.published_date}
-          />
-        ))}
+        <View style={{ alignContent: "center", alignItems: "center" }}>
+          <FirstItem />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {newsList.map((news, i) => (
+              <Card
+                key={i}
+                image={demoImage}
+                name={news?.publisher?.name}
+                title={news.title.split(" ").slice(0, 10).join(" ")}
+                time={millify(news.published_date)}
+              />
+            ))}
+          </View>
+          <FlatItem />
+        </View>
       </View>
     </ScrollView>
   );
